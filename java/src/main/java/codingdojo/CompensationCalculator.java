@@ -1,6 +1,7 @@
 package codingdojo;
 
 import codingdojo.overtimecalculator.DefaultOvertimeCalculator;
+import codingdojo.overtimecalculator.NonUnionCalculator;
 import codingdojo.overtimecalculator.OvertimeCalculator;
 import codingdojo.overtimecalculator.UnionOvertimeCalculator;
 
@@ -10,36 +11,9 @@ public class CompensationCalculator {
 
     public static Overtime calculateOvertime(BigDecimal hoursOvertime, Assignment assignment, Briefing briefing) {
         hoursOvertime = BigDecimal.ZERO.max(hoursOvertime);
-        var u = assignment.isUnionized();
-        var w = briefing.watcode();
-        var z = briefing.z3();
-        var f = briefing.foreign();
-        var h = briefing.hbmo();
-
-
-
-        // is there even overtime?
-        // does this quality for double overtime?
-        // what is the maximum for double overtime?
-
-
-        // non union, non z3, watcode
-        // union hmbo
-        // union watcode
-        // not union foreign
-        //
-        if ((!w && !z && !u) || (f && !u) || hoursOvertime.compareTo(BigDecimal.TEN) < 1) {
-            // pass
-        } else {
-            if (u) {
-                // pass
-            } else {
-                return overtime(hoursOvertime, BigDecimal.TEN, hoursOvertime);
-            }
-        }
-
         OvertimeCalculator[] overtimeCalculators = {
                 new UnionOvertimeCalculator(),
+                new NonUnionCalculator(),
                 new DefaultOvertimeCalculator(),
         };
         for (OvertimeCalculator overtimeCalculator : overtimeCalculators) {
