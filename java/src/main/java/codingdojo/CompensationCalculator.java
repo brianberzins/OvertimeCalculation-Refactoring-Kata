@@ -1,5 +1,7 @@
 package codingdojo;
 
+import codingdojo.overtimecalculator.OvertimeCalculator;
+
 import java.math.BigDecimal;
 
 public class CompensationCalculator {
@@ -14,6 +16,13 @@ public class CompensationCalculator {
         var f = briefing.foreign();
         var h = briefing.hbmo();
 
+
+        OvertimeCalculator[] overtimeCalculators = {};
+        for (OvertimeCalculator overtimeCalculator : overtimeCalculators) {
+            if (overtimeCalculator.appliesTo(hoursOvertime, assignment, briefing)) {
+                return overtimeCalculator.calculate(hoursOvertime, assignment, briefing);
+            }
+        }
 
         if ((!w && !z && !u) || (h && u) || (w && u) || (f && !u)){
             return singleRateOvertime(hoursOvertime);
