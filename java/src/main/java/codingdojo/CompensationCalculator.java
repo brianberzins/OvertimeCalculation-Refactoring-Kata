@@ -31,11 +31,11 @@ public class CompensationCalculator {
                 hoursOvertimeRate1 = hoursOvertimeTotal;
                 return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
             } else {
-                BigDecimal hoursOvertimeRate1 = BigDecimal.ZERO;
-                BigDecimal hoursOvertimeRate2 = BigDecimal.ZERO;
-                hoursOvertimeRate1 = MAX_OVERTIME_HOURS_RATE_1;
-                hoursOvertimeRate2 = hoursOvertimeTotal.subtract(MAX_OVERTIME_HOURS_RATE_1);
                 if (assignment.isUnionized()) {
+                    BigDecimal hoursOvertimeRate1 = BigDecimal.ZERO;
+                    BigDecimal hoursOvertimeRate2 = BigDecimal.ZERO;
+                    hoursOvertimeRate1 = MAX_OVERTIME_HOURS_RATE_1;
+                    hoursOvertimeRate2 = hoursOvertimeTotal.subtract(MAX_OVERTIME_HOURS_RATE_1);
                     BigDecimal threshold;
                     Duration remainder = assignment.duration().minusHours(THRESHOLD_OVERTIME_HOURS_RATE_2);
                     if (remainder.isNegative()) {
@@ -48,6 +48,10 @@ public class CompensationCalculator {
                         return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
                     }
                 } else {
+                    BigDecimal hoursOvertimeRate1 = BigDecimal.ZERO;
+                    BigDecimal hoursOvertimeRate2 = BigDecimal.ZERO;
+                    hoursOvertimeRate1 = MAX_OVERTIME_HOURS_RATE_1;
+                    hoursOvertimeRate2 = hoursOvertimeTotal.subtract(MAX_OVERTIME_HOURS_RATE_1);
                     return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
                 }
             }
