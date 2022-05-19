@@ -1,6 +1,4 @@
 package codingdojo;
 
-import java.math.BigDecimal;
-
-public record Overtime(BigDecimal hoursRate1, BigDecimal hoursRate2) {
+public record Overtime(double hoursRate1, double hoursRate2) {
 }
