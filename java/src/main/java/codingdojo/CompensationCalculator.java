@@ -40,8 +40,10 @@ public class CompensationCalculator {
                         threshold = BigDecimal.valueOf(THRESHOLD_OVERTIME_HOURS_RATE_2);
                         hoursOvertimeRate2 = hoursOvertimeRate2.min(threshold);
                     }
+                    return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
+                } else {
+                    return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
                 }
-                return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
             }
         }
     }
