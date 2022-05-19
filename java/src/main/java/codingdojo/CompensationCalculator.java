@@ -15,15 +15,11 @@ public class CompensationCalculator {
                         || briefing.watcode() && assignment.isUnionized()
                         || (briefing.foreign() && !assignment.isUnionized())
         ) {
-            BigDecimal hoursOvertimeRate2 = BigDecimal.ZERO;
-            return new Overtime(hoursOvertimeTotal, hoursOvertimeRate2);
+            return new Overtime(hoursOvertimeTotal, BigDecimal.ZERO);
         } else if (hoursOvertimeTotal.compareTo(BigDecimal.ZERO) < 1) {
-            BigDecimal hoursOvertimeRate1 = BigDecimal.ZERO;
-            BigDecimal hoursOvertimeRate2 = BigDecimal.ZERO;
-            return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
+            return new Overtime(BigDecimal.ZERO, BigDecimal.ZERO);
         } else if (hoursOvertimeTotal.compareTo(MAX_OVERTIME_HOURS_RATE_1) < 1) {
-            BigDecimal hoursOvertimeRate2 = BigDecimal.ZERO;
-            return new Overtime(hoursOvertimeTotal, hoursOvertimeRate2);
+            return new Overtime(hoursOvertimeTotal, BigDecimal.ZERO);
         } else if (assignment.isUnionized() && assignment.duration().minusHours(THRESHOLD_OVERTIME_HOURS_RATE_2).isNegative()) {
             BigDecimal hoursOvertimeRate2 = hoursOvertimeTotal.subtract(MAX_OVERTIME_HOURS_RATE_1);
             BigDecimal threshold = BigDecimal.valueOf(assignment.duration().toSeconds() / 3600);
