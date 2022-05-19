@@ -12,11 +12,6 @@ public class UnionOvertimeCalculator implements OvertimeCalculator {
     public static final BigDecimal MAX_HOURS_RATE_2 = BigDecimal.valueOf(6);
 
     @Override
-    public boolean appliesTo(BigDecimal hours, Assignment assignment, Briefing briefing) {
-        return assignment.isUnionized();
-    }
-
-    @Override
     public Overtime calculate(BigDecimal hours, Assignment assignment, Briefing briefing) {
         if (briefing.watcode() || briefing.hbmo()) {
             return new Overtime(hours, BigDecimal.ZERO);
