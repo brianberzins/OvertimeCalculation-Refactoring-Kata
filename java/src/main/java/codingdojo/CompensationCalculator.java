@@ -1,6 +1,5 @@
 package codingdojo;
 
-import codingdojo.overtimecalculator.DefaultOvertimeCalculator;
 import codingdojo.overtimecalculator.NonUnionCalculator;
 import codingdojo.overtimecalculator.OvertimeCalculator;
 import codingdojo.overtimecalculator.UnionOvertimeCalculator;
@@ -14,7 +13,6 @@ public class CompensationCalculator {
         OvertimeCalculator[] overtimeCalculators = {
                 new UnionOvertimeCalculator(),
                 new NonUnionCalculator(),
-                new DefaultOvertimeCalculator(),
         };
         for (OvertimeCalculator overtimeCalculator : overtimeCalculators) {
             if (overtimeCalculator.appliesTo(hoursOvertime, assignment, briefing)) {
