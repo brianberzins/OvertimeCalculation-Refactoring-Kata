@@ -20,6 +20,7 @@ public class CompensationCalculator {
                         || (briefing.foreign() && !assignment.isUnionized())
         ) {
             hoursOvertimeRate1 = hoursOvertimeTotal;
+            return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
         } else {
             if (hoursOvertimeTotal.compareTo(BigDecimal.ZERO) < 1) {
                 return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
@@ -33,9 +34,8 @@ public class CompensationCalculator {
                     hoursOvertimeRate2 = hoursOvertimeRate2.min(threshold);
                 }
             }
+            return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
         }
-
-        return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
     }
 
     private static BigDecimal calculateThreshold(Assignment assignment, long threshold) {
