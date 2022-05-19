@@ -31,26 +31,14 @@ public class CompensationCalculator {
         // not union foreign
         //
         if ((!w && !z && !u) || (h && u) || (w && u) || (f && !u) || hoursOvertime.compareTo(BigDecimal.TEN) < 1) {
-            return singleRateOvertime(hoursOvertime);
+            return overtime(hoursOvertime, hoursOvertime, BigDecimal.ZERO);
         } else {
             if (u) {
-                return twoRateOvertime(hoursOvertime, BigDecimal.valueOf(6).min(BigDecimal.valueOf(assignment.duration().toHours())));
+                return overtime(hoursOvertime, BigDecimal.TEN, BigDecimal.valueOf(6).min(BigDecimal.valueOf(assignment.duration().toHours())));
             } else {
-                return twoRateOvertime(hoursOvertime);
+                return overtime(hoursOvertime, BigDecimal.TEN, hoursOvertime);
             }
         }
-    }
-
-    private static Overtime twoRateOvertime(BigDecimal hoursOvertime) {
-        return twoRateOvertime(hoursOvertime, hoursOvertime);
-    }
-
-    private static Overtime twoRateOvertime(BigDecimal hoursOvertime, BigDecimal maximumDoubleOvertime) {
-        return new Overtime(BigDecimal.TEN, hoursOvertime.subtract(BigDecimal.TEN).min(maximumDoubleOvertime));
-    }
-
-    private static Overtime singleRateOvertime(BigDecimal hours) {
-        return overtime(hours, hours, BigDecimal.ZERO);
     }
 
     private static Overtime overtime(BigDecimal hours, BigDecimal maxRate1Overtime, BigDecimal maxRate2Overtime) {
