@@ -16,9 +16,12 @@ public class UnionOvertimeCalculator implements OvertimeCalculator {
         if (briefing.watcode() || briefing.hbmo()) {
             return new Overtime(hours, 0d);
         }
+        return twoRateOvertime(hours, assignment.inHours());
+    }
+
+    private Overtime twoRateOvertime(double hours, double assignmentHours) {
         var hoursRate1 = Double.min(hours, MAX_HOURS_RATE_1);
-        var hoursRate2 = Stream.of(hours - hoursRate1, MAX_HOURS_RATE_2, assignment.inHours())
-                .min(Double::compareTo).get();
+        var hoursRate2 = Double.min(Double.min(hours - hoursRate1, MAX_HOURS_RATE_2), assignmentHours);
         return new Overtime(hoursRate1, hoursRate2);
     }
 
