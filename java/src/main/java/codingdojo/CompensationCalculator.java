@@ -21,14 +21,18 @@ public class CompensationCalculator {
             hoursOvertimeRate1 = hoursOvertimeTotal;
             return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
         } else {
-            BigDecimal hoursOvertimeRate1 = BigDecimal.ZERO;
-            BigDecimal hoursOvertimeRate2 = BigDecimal.ZERO;
             if (hoursOvertimeTotal.compareTo(BigDecimal.ZERO) < 1) {
+                BigDecimal hoursOvertimeRate1 = BigDecimal.ZERO;
+                BigDecimal hoursOvertimeRate2 = BigDecimal.ZERO;
                 return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
             } else if (hoursOvertimeTotal.compareTo(MAX_OVERTIME_HOURS_RATE_1) < 1) {
+                BigDecimal hoursOvertimeRate1 = BigDecimal.ZERO;
+                BigDecimal hoursOvertimeRate2 = BigDecimal.ZERO;
                 hoursOvertimeRate1 = hoursOvertimeTotal;
                 return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
             } else {
+                BigDecimal hoursOvertimeRate1 = BigDecimal.ZERO;
+                BigDecimal hoursOvertimeRate2 = BigDecimal.ZERO;
                 hoursOvertimeRate1 = MAX_OVERTIME_HOURS_RATE_1;
                 hoursOvertimeRate2 = hoursOvertimeTotal.subtract(MAX_OVERTIME_HOURS_RATE_1);
                 if (assignment.isUnionized()) {
