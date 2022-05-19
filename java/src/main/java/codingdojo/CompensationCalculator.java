@@ -1,5 +1,6 @@
 package codingdojo;
 
+import codingdojo.overtimecalculator.DefaultOvertimeCalculator;
 import codingdojo.overtimecalculator.OvertimeCalculator;
 
 import java.math.BigDecimal;
@@ -13,12 +14,7 @@ public class CompensationCalculator {
         var f = briefing.foreign();
         var h = briefing.hbmo();
 
-        OvertimeCalculator[] overtimeCalculators = {};
-        for (OvertimeCalculator overtimeCalculator : overtimeCalculators) {
-            if (overtimeCalculator.appliesTo(hoursOvertime, assignment, briefing)) {
-                return overtimeCalculator.calculate(hoursOvertime, assignment, briefing);
-            }
-        }
+
 
         // is there even overtime?
         // does this quality for double overtime?
@@ -31,7 +27,7 @@ public class CompensationCalculator {
         // not union foreign
         //
         if ((!w && !z && !u) || (h && u) || (w && u) || (f && !u) || hoursOvertime.compareTo(BigDecimal.TEN) < 1) {
-            return overtime(hoursOvertime, hoursOvertime, BigDecimal.ZERO);
+            // pass
         } else {
             if (u) {
                 return overtime(hoursOvertime, BigDecimal.TEN, BigDecimal.valueOf(6).min(BigDecimal.valueOf(assignment.duration().toHours())));
@@ -39,6 +35,16 @@ public class CompensationCalculator {
                 return overtime(hoursOvertime, BigDecimal.TEN, hoursOvertime);
             }
         }
+
+        OvertimeCalculator[] overtimeCalculators = {
+                new DefaultOvertimeCalculator(),
+        };
+        for (OvertimeCalculator overtimeCalculator : overtimeCalculators) {
+            if (overtimeCalculator.appliesTo(hoursOvertime, assignment, briefing)) {
+                return overtimeCalculator.calculate(hoursOvertime, assignment, briefing);
+            }
+        }
+        throw new RuntimeException("unhandled overtime calculation");
     }
 
     private static Overtime overtime(BigDecimal hours, BigDecimal maxRate1Overtime, BigDecimal maxRate2Overtime) {
