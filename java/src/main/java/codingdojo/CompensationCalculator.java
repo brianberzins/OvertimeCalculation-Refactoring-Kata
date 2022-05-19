@@ -25,14 +25,14 @@ public class CompensationCalculator {
         // what is the maximum for double overtime?
 
 
-        if ((w || z || u) && (!h || !u) && (!w || !u) && (!f || u) && hoursOvertime.compareTo(BigDecimal.TEN) >= 1) {
+        if ((!w && !z && !u) || (h && u) || (w && u) || (f && !u) || hoursOvertime.compareTo(BigDecimal.TEN) < 1) {
+            return singleRateOvertime(hoursOvertime);
+        } else {
             if (u) {
                 return twoRateOvertime(hoursOvertime, BigDecimal.valueOf(6).min(BigDecimal.valueOf(assignment.duration().toHours())));
             } else {
                 return twoRateOvertime(hoursOvertime);
             }
-        } else {
-            return singleRateOvertime(hoursOvertime);
         }
     }
 
