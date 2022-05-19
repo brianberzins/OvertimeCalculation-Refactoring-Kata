@@ -27,7 +27,7 @@ public class CompensationCalculator {
         if ((!w && !z && !u) || (h && u) || (w && u) || (f && !u) || hoursOvertime.compareTo(BigDecimal.TEN) < 1) {
             return singleRateOvertime(hoursOvertime);
         } else if (u && assignment.duration().minusHours(6).isNegative()) {
-            return twoRateOvertime(hoursOvertime, BigDecimal.valueOf(assignment.duration().toSeconds() / 3600));
+            return twoRateOvertime(hoursOvertime, BigDecimal.valueOf(assignment.duration().toHours()));
         } else if (u && !(assignment.duration().minusHours(6).isNegative())) {
             return twoRateOvertime(hoursOvertime, BigDecimal.valueOf(6));
         } else {
