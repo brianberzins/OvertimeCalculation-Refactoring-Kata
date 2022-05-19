@@ -34,10 +34,11 @@ public class CompensationCalculator {
                     Duration remainder = assignment.duration().minusHours(THRESHOLD_OVERTIME_HOURS_RATE_2);
                     if (remainder.isNegative()) {
                         threshold = BigDecimal.valueOf(assignment.duration().toSeconds() / 3600);
+                        hoursOvertimeRate2 = hoursOvertimeRate2.min(threshold);
                     } else {
                         threshold = BigDecimal.valueOf(THRESHOLD_OVERTIME_HOURS_RATE_2);
+                        hoursOvertimeRate2 = hoursOvertimeRate2.min(threshold);
                     }
-                    hoursOvertimeRate2 = hoursOvertimeRate2.min(threshold);
                 }
             }
             return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
