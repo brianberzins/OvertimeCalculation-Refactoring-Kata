@@ -4,8 +4,6 @@ import codingdojo.Assignment;
 import codingdojo.Briefing;
 import codingdojo.Overtime;
 
-import java.util.stream.Stream;
-
 public class UnionOvertimeCalculator implements OvertimeCalculator {
 
     public static final double MAX_HOURS_RATE_1 = 10d;
@@ -16,12 +14,13 @@ public class UnionOvertimeCalculator implements OvertimeCalculator {
         if (briefing.watcode() || briefing.hbmo()) {
             return new Overtime(hours, 0d);
         }
-        return twoRateOvertime(hours, assignment.inHours());
+
+        return twoRateOvertime(hours, assignment.inHours(), MAX_HOURS_RATE_2);
     }
 
-    private Overtime twoRateOvertime(double hours, double assignmentHours) {
+    private Overtime twoRateOvertime(double hours, double assignmentHours, double maxHoursRate2) {
         var hoursRate1 = Double.min(hours, MAX_HOURS_RATE_1);
-        var hoursRate2 = Double.min(Double.min(hours - hoursRate1, MAX_HOURS_RATE_2), assignmentHours);
+        var hoursRate2 = Double.min(Double.min(hours - hoursRate1, maxHoursRate2), assignmentHours);
         return new Overtime(hoursRate1, hoursRate2);
     }
 
