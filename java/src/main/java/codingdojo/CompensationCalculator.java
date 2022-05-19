@@ -15,7 +15,7 @@ public class CompensationCalculator {
         var h = briefing.hbmo();
 
 
-        if ((!w && !z && !u) || (h && u) || (w && !u && f) || (w && u) || (f && !u)){
+        if ((!w && !z && !u) || (h && u) || (w && u) || (f && !u)){
             return singleRateOvertime(hoursOvertime);
         } else if (hoursOvertime.compareTo(BigDecimal.ZERO) < 1) {
             return singleRateOvertime(BigDecimal.ZERO);
