@@ -2,12 +2,14 @@ package codingdojo;
 
 import codingdojo.overtimecalculator.DefaultOvertimeCalculator;
 import codingdojo.overtimecalculator.OvertimeCalculator;
+import codingdojo.overtimecalculator.UnionOvertimeCalculator;
 
 import java.math.BigDecimal;
 
 public class CompensationCalculator {
 
     public static Overtime calculateOvertime(BigDecimal hoursOvertime, Assignment assignment, Briefing briefing) {
+        hoursOvertime = BigDecimal.ZERO.max(hoursOvertime);
         var u = assignment.isUnionized();
         var w = briefing.watcode();
         var z = briefing.z3();
@@ -26,17 +28,18 @@ public class CompensationCalculator {
         // union watcode
         // not union foreign
         //
-        if ((!w && !z && !u) || (h && u) || (w && u) || (f && !u) || hoursOvertime.compareTo(BigDecimal.TEN) < 1) {
+        if ((!w && !z && !u) || (f && !u) || hoursOvertime.compareTo(BigDecimal.TEN) < 1) {
             // pass
         } else {
             if (u) {
-                return overtime(hoursOvertime, BigDecimal.TEN, BigDecimal.valueOf(6).min(BigDecimal.valueOf(assignment.duration().toHours())));
+                // pass
             } else {
                 return overtime(hoursOvertime, BigDecimal.TEN, hoursOvertime);
             }
         }
 
         OvertimeCalculator[] overtimeCalculators = {
+                new UnionOvertimeCalculator(),
                 new DefaultOvertimeCalculator(),
         };
         for (OvertimeCalculator overtimeCalculator : overtimeCalculators) {

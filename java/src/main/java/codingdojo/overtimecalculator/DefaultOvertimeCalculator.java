@@ -15,6 +15,6 @@ public class DefaultOvertimeCalculator implements OvertimeCalculator {
 
     @Override
     public Overtime calculate(BigDecimal hours, Assignment assignment, Briefing briefing) {
-        return new Overtime(BigDecimal.ZERO.max(hours), BigDecimal.ZERO);
+        return new Overtime(hours, BigDecimal.ZERO);
     }
 }
