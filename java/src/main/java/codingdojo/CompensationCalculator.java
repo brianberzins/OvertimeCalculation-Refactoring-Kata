@@ -26,6 +26,7 @@ public class CompensationCalculator {
                 return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
             } else if (hoursOvertimeTotal.compareTo(MAX_OVERTIME_HOURS_RATE_1) < 1) {
                 hoursOvertimeRate1 = hoursOvertimeTotal;
+                return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
             } else {
                 hoursOvertimeRate1 = MAX_OVERTIME_HOURS_RATE_1;
                 hoursOvertimeRate2 = hoursOvertimeTotal.subtract(MAX_OVERTIME_HOURS_RATE_1);
@@ -40,8 +41,8 @@ public class CompensationCalculator {
                         hoursOvertimeRate2 = hoursOvertimeRate2.min(threshold);
                     }
                 }
+                return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
             }
-            return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
         }
     }
 
