@@ -37,8 +37,7 @@ public class CompensationCalculator {
                     hoursOvertimeRate1 = MAX_OVERTIME_HOURS_RATE_1;
                     hoursOvertimeRate2 = hoursOvertimeTotal.subtract(MAX_OVERTIME_HOURS_RATE_1);
                     BigDecimal threshold;
-                    Duration remainder = assignment.duration().minusHours(THRESHOLD_OVERTIME_HOURS_RATE_2);
-                    if (remainder.isNegative()) {
+                    if (assignment.duration().minusHours(THRESHOLD_OVERTIME_HOURS_RATE_2).isNegative()) {
                         threshold = BigDecimal.valueOf(assignment.duration().toSeconds() / 3600);
                         hoursOvertimeRate2 = hoursOvertimeRate2.min(threshold);
                         return new Overtime(hoursOvertimeRate1, hoursOvertimeRate2);
