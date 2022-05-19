@@ -12,14 +12,11 @@ public class CompensationCalculator {
         BigDecimal hoursOvertimeRate1 = BigDecimal.ZERO;
         BigDecimal hoursOvertimeRate2 = BigDecimal.ZERO;
 
-        boolean isWatcodeUnion = briefing.watcode() && assignment.isUnionized();
-        boolean isWatcodeNonUnionForeign = briefing.watcode() && !assignment.isUnionized() && briefing.foreign();
-
         if (
                 (! briefing.watcode() && ! briefing.z3() && !assignment.isUnionized())
                         || (briefing.hbmo() && assignment.isUnionized())
-                        || isWatcodeNonUnionForeign
-                        || isWatcodeUnion
+                        || briefing.watcode() && !assignment.isUnionized() && briefing.foreign()
+                        || briefing.watcode() && assignment.isUnionized()
                         || (briefing.foreign() && !assignment.isUnionized())
         ) {
             hoursOvertimeRate1 = hoursOvertimeTotal;
