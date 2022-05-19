@@ -25,6 +25,11 @@ public class CompensationCalculator {
         // what is the maximum for double overtime?
 
 
+        // non union, non z3, watcode
+        // union hmbo
+        // union watcode
+        // not union foreign
+        //
         if ((!w && !z && !u) || (h && u) || (w && u) || (f && !u) || hoursOvertime.compareTo(BigDecimal.TEN) < 1) {
             return singleRateOvertime(hoursOvertime);
         } else {
@@ -44,8 +49,14 @@ public class CompensationCalculator {
         return new Overtime(BigDecimal.TEN, hoursOvertime.subtract(BigDecimal.TEN).min(maximumDoubleOvertime));
     }
 
-    private static Overtime singleRateOvertime(BigDecimal hoursOvertimeTotal) {
-        return new Overtime(BigDecimal.ZERO.max(hoursOvertimeTotal), BigDecimal.ZERO);
+    private static Overtime singleRateOvertime(BigDecimal hours) {
+        return overtime(hours, hours, BigDecimal.ZERO);
+    }
+
+    private static Overtime overtime(BigDecimal hours, BigDecimal maxRate1Overtime, BigDecimal maxRate2Overtime) {
+        var hoursRate1 = BigDecimal.ZERO.max(hours).min(maxRate1Overtime);
+        var hoursRate2 = hours.subtract(hoursRate1).min(maxRate2Overtime);
+        return new Overtime(hoursRate1, hoursRate2);
     }
 
 }
