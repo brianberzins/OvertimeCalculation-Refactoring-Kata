@@ -26,12 +26,12 @@ public class CompensationCalculator {
 
         if ((!w && !z && !u) || (h && u) || (w && u) || (f && !u) || hoursOvertime.compareTo(BigDecimal.TEN) < 1) {
             return singleRateOvertime(hoursOvertime);
-        } else if (u && assignment.duration().minusHours(6).isNegative()) {
-            return twoRateOvertime(hoursOvertime, BigDecimal.valueOf(assignment.duration().toHours()));
-        } else if (u && !(assignment.duration().minusHours(6).isNegative())) {
-            return twoRateOvertime(hoursOvertime, BigDecimal.valueOf(6));
-        } else {
+        } else if (!u) {
             return twoRateOvertime(hoursOvertime);
+        } else if (assignment.duration().minusHours(6).isNegative()) {
+            return twoRateOvertime(hoursOvertime, BigDecimal.valueOf(assignment.duration().toHours()));
+        } else {
+            return twoRateOvertime(hoursOvertime, BigDecimal.valueOf(6));
         }
     }
 
