@@ -11,8 +11,8 @@ public class UnionOvertimeCalculator implements OvertimeCalculator {
         if (briefing.watcode() || briefing.hbmo()) {
             return new Overtime(hours, 0d);
         }
-
-        return twoRateOvertime(hours, assignment.inHours(), 6d);
+        var maxHoursRate = briefing.foreign() ? 4d : 6d;
+        return twoRateOvertime(hours, assignment.inHours(), maxHoursRate);
     }
 
     private Overtime twoRateOvertime(double hours, double assignmentHours, double maxHoursRate2) {
