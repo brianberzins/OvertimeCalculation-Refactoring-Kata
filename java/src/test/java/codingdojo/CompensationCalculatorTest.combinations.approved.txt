@@ -1,0 +1,1 @@
+[8, Assignment[isUnionized=false, duration=PT10H], Briefing[watcode=false, z3=false, foreign=true, hbmo=true]] => Overtime[hoursRate1=8, hoursRate2=0] 
