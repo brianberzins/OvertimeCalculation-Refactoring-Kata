@@ -24,11 +24,7 @@ public class CompensationCalculator {
         // does this quality for double overtime?
         // what is the maximum for double overtime?
 
-        if ((!w && !z && !u) || (h && u) || (w && u) || (f && !u)){
-            return singleRateOvertime(hoursOvertime);
-        } else if (hoursOvertime.compareTo(BigDecimal.ZERO) < 1) {
-            return singleRateOvertime(BigDecimal.ZERO);
-        } else if (hoursOvertime.compareTo(BigDecimal.TEN) < 1) {
+        if ((!w && !z && !u) || (h && u) || (w && u) || (f && !u) || hoursOvertime.compareTo(BigDecimal.TEN) < 1) {
             return singleRateOvertime(hoursOvertime);
         } else if (u && assignment.duration().minusHours(6).isNegative()) {
             return twoRateOvertime(hoursOvertime, BigDecimal.valueOf(assignment.duration().toSeconds() / 3600));
