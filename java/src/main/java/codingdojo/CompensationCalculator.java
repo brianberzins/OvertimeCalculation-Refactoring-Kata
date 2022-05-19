@@ -48,7 +48,7 @@ public class CompensationCalculator {
     }
 
     private static Overtime singleRateOvertime(BigDecimal hoursOvertimeTotal) {
-        return new Overtime(hoursOvertimeTotal, BigDecimal.ZERO);
+        return new Overtime(BigDecimal.ZERO.max(hoursOvertimeTotal), BigDecimal.ZERO);
     }
 
 }
